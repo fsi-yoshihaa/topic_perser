@@ -1,5 +1,7 @@
-Attribute VB_Name = "Module1"
+Attribute VB_Name = "GetFileName"
+Public Target_cell_for_output_file As String
 Sub GetOutputFolder()
+    Target_cell_for_import_file = "B10"
     ' フォルダ名を取得
     Dim outputFolder As Variant
     With Application.FileDialog(msoFileDialogFolderPicker)
@@ -10,5 +12,6 @@ Sub GetOutputFolder()
     End With
     
     ' ファイル名を出力
-    Range("B5") = outputFolder
+    Range(Target_cell_for_import_file) = outputFolder
 End Sub
+
