@@ -1,82 +1,81 @@
 Attribute VB_Name = "DumpLog"
-
 Sub DumpLog()
-    ' ï¿½Ç‚İï¿½ï¿½İƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒpï¿½Xï¿½ï¿½ï¿½æ“¾
+    ' “Ç‚İ‚İƒtƒ@ƒCƒ‹‚ÌƒpƒX‚ğæ“¾
     Dim inputFile As String
     inputFile = Range("B2")
-    ' ï¿½oï¿½Íï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½Ìƒpï¿½Xï¿½ï¿½ï¿½æ“¾
+    ' o—ÍæƒtƒHƒ‹ƒ_‚ÌƒpƒX‚ğæ“¾
     Dim outputFolderPath As String
     outputFolderPath = Range("B5")
-    ' ï¿½ó”’‚ï¿½ï¿½íœï¿½ï¿½ï¿½ï¿½
+    ' ‹ó”’‚ğíœ‚·‚é
     inputFile = Replace(inputFile, " ", "")
-    inputFile = Replace(inputFile, "ï¿½@", "")
+    inputFile = Replace(inputFile, "@", "")
     
-     ' ï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½Aï¿½wï¿½è‚³ï¿½ê‚½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½Ìï¿½ï¿½ï¿½
+     ' “ü—Í‚ª‚³‚ê‚Ä‚¢‚È‚¢Aw’è‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚È‚¢ê‡‚Ìˆ—
     If inputFile = "" Or Dir(inputFile) = "" Then
-        MsgBox "ï¿½Ç‚İï¿½ï¿½İƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B", vbExclamation
-        'ï¿½Zï¿½ï¿½ï¿½Éƒtï¿½Hï¿½[ï¿½Jï¿½Xï¿½ï¿½ï¿½Ú“ï¿½ï¿½ï¿½ï¿½ï¿½
+        MsgBox "“Ç‚İ‚İƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚Ü‚¹‚ñB", vbExclamation
+        'ƒZƒ‹‚ÉƒtƒH[ƒJƒX‚ğˆÚ“®‚·‚é
         Range("B2").Select
         Exit Sub
     End If
     
-    If outputFolderPath = "" Then ' ï¿½oï¿½Íï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ó”’‚Ìê‡
-        ' ï¿½Ç‚İï¿½ï¿½İƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Æ“ï¿½ï¿½ï¿½ï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½oï¿½Íï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½Æ‚ï¿½ï¿½ï¿½
+    If outputFolderPath = "" Then ' o—ÍæƒtƒHƒ‹ƒ_‚ª‹ó”’‚Ìê‡
+        ' “Ç‚İ‚İƒtƒ@ƒCƒ‹‚Æ“¯‚¶ƒtƒHƒ‹ƒ_‚ğo—ÍæƒtƒHƒ‹ƒ_‚Æ‚·‚é
         outputFolderPath = Left(inputFile, (InStrRev(inputFile, "\") - 1))
         Range("B5") = outputFolderPath
     End If
     
-    Dim inputFileLen As Integer ' ï¿½Ç‚İï¿½ï¿½İƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒpï¿½Xï¿½Ì’ï¿½ï¿½ï¿½
+    Dim inputFileLen As Integer ' “Ç‚İ‚İƒtƒ@ƒCƒ‹‚ÌƒpƒX‚Ì’·‚³
     inputFileLen = Len(inputFile)
-    Dim outputFilePath As String ' ï¿½oï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Ìƒpï¿½X
-    Dim outputFileName As String ' ï¿½oï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½
+    Dim outputFilePath As String ' o—Íƒtƒ@ƒCƒ‹‚ÌƒpƒX
+    Dim outputFileName As String ' o—Íƒtƒ@ƒCƒ‹–¼
     outputFileName = makeFileName()
     outputFilePath = outputFolderPath & "\" & outputFileName
-    Dim outputSheetName As String ' ï¿½oï¿½Í‚ï¿½ï¿½ï¿½Vï¿½[ï¿½gï¿½ï¿½
-    outputSheetName = "ï¿½_ï¿½ï¿½ï¿½v"
+    Dim outputSheetName As String ' o—Í‚·‚éƒV[ƒg–¼
+    outputSheetName = "ƒ_ƒ“ƒv"
     Dim fOutputObj As Object
-    Dim outputWb As Workbook  ' ï¿½oï¿½Í‚ï¿½ï¿½éƒï¿½[ï¿½Nï¿½uï¿½bï¿½N
-    Dim outputWs As Worksheet ' ï¿½oï¿½Í‚ï¿½ï¿½ï¿½Vï¿½[ï¿½g
-    Dim tempFilePath As String 'ï¿½@ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Íƒtï¿½Hï¿½ï¿½ï¿½_ï¿½[
+    Dim outputWb As Workbook  ' o—Í‚·‚éƒ[ƒNƒuƒbƒN
+    Dim outputWs As Worksheet ' o—Í‚·‚éƒV[ƒg
+    Dim tempFilePath As String '@V‚µ‚¢o—ÍƒtƒHƒ‹ƒ_[
     
-    If Dir(inputFile) <> "" Then ' B2ï¿½Åwï¿½è‚³ï¿½ê‚½ï¿½Ç‚İï¿½ï¿½İƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½ï¿½ê‡
-        If Dir(outputFolderPath, vbDirectory) <> "" Then ' B5ï¿½Åwï¿½è‚³ï¿½ê‚½ï¿½oï¿½Íï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½ï¿½ê‡
-            ' ï¿½uï¿½bï¿½Nï¿½ï¿½Vï¿½Kï¿½ì¬
+    If Dir(inputFile) <> "" Then ' B2‚Åw’è‚³‚ê‚½“Ç‚İ‚İƒtƒ@ƒCƒ‹‚ª‘¶İ‚·‚éê‡
+        If Dir(outputFolderPath, vbDirectory) <> "" Then ' B5‚Åw’è‚³‚ê‚½o—ÍæƒtƒHƒ‹ƒ_‚ª‘¶İ‚·‚éê‡
+            ' ƒuƒbƒN‚ğV‹Kì¬
             Set outputWb = Workbooks.Add
-            ' ï¿½Vï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½ÏX
+            ' ƒV[ƒg–¼‚ğ•ÏX
             Set outputWs = outputWb.Sheets(1)
             outputWs.Name = outputSheetName
             
-             'ï¿½@ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½oï¿½Íƒtï¿½Hï¿½ï¿½ï¿½_ï¿½[
+             '@V‚µ‚¢o—ÍƒtƒHƒ‹ƒ_[
             tempFilePath = outputFolderPath & "\Temp_CRLF.txt"
-            ' ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½sï¿½[ï¿½ï¿½ï¿½Ä‰ï¿½ï¿½sï¿½Rï¿½[ï¿½hï¿½ÏŠï¿½
+            ' Œ³ƒtƒ@ƒCƒ‹‚ğƒRƒs[‚µ‚Ä‰üsƒR[ƒh•ÏŠ·
             Call LfToCrlfCopy(inputFile, tempFilePath)
     
-            ' ï¿½_ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Å‚Í‚È‚ï¿½ï¿½êï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½gï¿½pï¿½j
+            ' ƒ_ƒ“ƒvˆ—iŒ³ƒtƒ@ƒCƒ‹‚Å‚Í‚È‚­ˆêƒtƒ@ƒCƒ‹‚ğg—pj
             Call OutputDumpData(tempFilePath, outputWs)
 
-            ' ï¿½uï¿½bï¿½Nï¿½ï¿½Û‘ï¿½
+            ' ƒuƒbƒN‚ğ•Û‘¶
             outputWb.SaveAs outputFilePath
 
-            ' ï¿½uï¿½bï¿½Nï¿½ï¿½Â‚ï¿½ï¿½ï¿½
+            ' ƒuƒbƒN‚ğ•Â‚¶‚é
             outputWb.Close
             
-            ' ï¿½êï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½íœ
+            ' ˆêƒtƒ@ƒCƒ‹‚ğíœ
             If Dir(tempFilePath) <> "" Then
                  Kill tempFilePath
             End If
 
             
-             ' ï¿½ï¿½ï¿½ï¿½Éoï¿½Í‚ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½\ï¿½ï¿½!!!!!!!'
+             ' ³í‚Éo—Í‚³‚ê‚½‚±‚Æ‚ğ¦‚·ƒƒbƒZ[ƒW‚ğ•\¦!!!!!!!'
             Call ShowCompletionMessage
             
         Else
-            ' ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½oï¿½ï¿½
-            MsgBox "ï¿½oï¿½Íï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", vbExclamation
+            ' ƒGƒ‰[ƒƒbƒZ[ƒW‚ğo—Í
+            MsgBox "o—ÍæƒtƒHƒ‹ƒ_‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ", vbExclamation
         End If
         
-    Else  ' B2ï¿½Åwï¿½è‚³ï¿½ê‚½ï¿½Ç‚İï¿½ï¿½İƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½ï¿½È‚ï¿½ï¿½ê‡
-        ' ï¿½Gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½oï¿½ï¿½
-        MsgBox "ï¿½Ç‚İï¿½ï¿½İƒtï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", vbExclamation
+    Else  ' B2‚Åw’è‚³‚ê‚½“Ç‚İ‚İƒtƒ@ƒCƒ‹‚ª‘¶İ‚µ‚È‚¢ê‡
+        ' ƒGƒ‰[ƒƒbƒZ[ƒW‚ğo—Í
+        MsgBox "“Ç‚İ‚İƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ", vbExclamation
         
     End If
     
@@ -84,54 +83,54 @@ End Sub
 
 
 Function makeFileName() As String
-    ' ï¿½ï¿½ï¿½t_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
+    ' “ú•t_‚ğæ“¾
     Dim dateTime
     dateTime = Now()
     
-    ' ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É•ÏŠï¿½
+    ' •¶š—ñ‚É•ÏŠ·
     Dim retStr As String
     retStr = Format(dateTime, "yyyymmdd_hmmss")
     
     makeFileName = retStr & "_log_dump.xlsx"
 End Function
 
-'#### ï¿½oï¿½ï¿½ ####'
+'#### o—Í ####'
 Function OutputDumpData(ByVal tempFilePath As String, ByVal outputWs As Worksheet)
-    ' ï¿½oï¿½Íï¿½ÌƒVï¿½[ï¿½gï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½
+    ' o—Íæ‚ÌƒV[ƒg‚ğƒNƒŠƒA‚·‚é
     outputWs.Cells.Clear
     
-    ' ï¿½Ïï¿½ï¿½éŒ¾
-    Dim serchStr As String              ' ï¿½oï¿½Í‚ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ğ”»’fï¿½ï¿½ï¿½ï¿½Úˆï¿½
-    Dim flgRead As Boolean              ' ï¿½Ç‚İï¿½ï¿½İƒfï¿½[ï¿½^ï¿½tï¿½ï¿½ï¿½O
-    Dim readLine As String              ' ï¿½Ç‚İï¿½ï¿½ñ‚¾—ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½
-    Dim headerList As New Collection    ' ï¿½wï¿½bï¿½_ï¿½Ì•ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒï¿½ï¿½Xï¿½g
-    Dim lastKey As String               ' ï¿½ÅŒï¿½ï¿½keyï¿½iï¿½wï¿½bï¿½_ï¿½Ìï¿½ï¿½Új
-    Dim clmMax As Integer               ' ï¿½Å‘ï¿½ï¿½
-    Dim row As Integer                  ' ï¿½s
-    Dim rowHeader As Integer            ' ï¿½wï¿½bï¿½_ï¿½ï¿½ï¿½oï¿½Í‚ï¿½ï¿½ï¿½s
-    Dim clm As Integer                  ' ï¿½ï¿½
-    Dim clmNo As Integer                ' Noï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-    Dim cntBlock As Integer             ' ï¿½oï¿½Íƒuï¿½ï¿½ï¿½bï¿½Nï¿½ÌƒJï¿½Eï¿½ï¿½ï¿½g
-    Dim cntData As Integer              ' ï¿½fï¿½[ï¿½^ï¿½ÌƒJï¿½Eï¿½ï¿½ï¿½g
+    ' •Ï”éŒ¾
+    Dim serchStr As String              ' o—Í‚·‚éƒf[ƒ^‚©‚ğ”»’f‚·‚é–Úˆó
+    Dim flgRead As Boolean              ' “Ç‚İ‚İƒf[ƒ^ƒtƒ‰ƒO
+    Dim readLine As String              ' “Ç‚İ‚ñ‚¾—ñ‚Ì•¶š—ñ
+    Dim headerList As New Collection    ' ƒwƒbƒ_‚Ì•¶š—ñ‚ÌƒŠƒXƒg
+    Dim lastKey As String               ' ÅŒã‚Ìkeyiƒwƒbƒ_‚Ì€–Új
+    Dim clmMax As Integer               ' Å‘å—ñ”
+    Dim row As Integer                  ' s
+    Dim rowHeader As Integer            ' ƒwƒbƒ_‚ğo—Í‚·‚és
+    Dim clm As Integer                  ' —ñ
+    Dim clmNo As Integer                ' No‚ğ•\¦‚·‚é—ñ
+    Dim cntBlock As Integer             ' o—ÍƒuƒƒbƒN‚ÌƒJƒEƒ“ƒg
+    Dim cntData As Integer              ' ƒf[ƒ^‚ÌƒJƒEƒ“ƒg
     
     serchStr = "---"
     flgRead = False
     cntBlock = 0
-    row = 3         ' ï¿½ï¿½ï¿½sï¿½Ú‚ï¿½ï¿½ï¿½oï¿½Í‚ï¿½ï¿½é‚©ï¿½ï¿½İ’ï¿½
+    row = 3         ' ‰½s–Ú‚©‚ço—Í‚·‚é‚©‚ğİ’è
     rowHeader = row
-    clmNo = 2       ' ï¿½ï¿½ï¿½ï¿½Ú‚ï¿½ï¿½ï¿½oï¿½Í‚ï¿½ï¿½é‚©ï¿½ï¿½İ’ï¿½
+    clmNo = 2       ' ‰½—ñ–Ú‚©‚ço—Í‚·‚é‚©‚ğİ’è
     cntData = 1
     clmMax = clmNo
     
-    ' ï¿½ï¿½ï¿½Íƒtï¿½@ï¿½Cï¿½ï¿½ï¿½Iï¿½[ï¿½vï¿½ï¿½
+    ' “ü—Íƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
     Open tempFilePath For Input As #1
     
     Do Until EOF(1)
-        ' 1ï¿½ñ‚¸‚Â“Ç‚İï¿½ï¿½ï¿½
+        ' 1—ñ‚¸‚Â“Ç‚İ‚Ş
         Line Input #1, readLine
         
-        If readLine = serchStr Then ' --- ï¿½Ìê‡
-            ' ï¿½Ç‚İï¿½ï¿½İƒtï¿½ï¿½ï¿½Oï¿½ï¿½ONï¿½É‚ï¿½ï¿½ï¿½
+        If readLine = serchStr Then ' --- ‚Ìê‡
+            ' “Ç‚İ‚İƒtƒ‰ƒO‚ğON‚É‚·‚é
             flgRead = True
             
             cntBlock = cntBlock + 1
@@ -139,55 +138,55 @@ Function OutputDumpData(ByVal tempFilePath As String, ByVal outputWs As Workshee
             row = row + 1
             clm = clmNo + 1
             
-            If cntBlock = 1 Then ' 1ï¿½Â–Ú‚Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½Ìê‡
-                ' [No](ï¿½wï¿½bï¿½_)ï¿½ï¿½ï¿½oï¿½ï¿½
+            If cntBlock = 1 Then ' 1‚Â–Ú‚ÌƒuƒƒbƒN‚Ìê‡
+                ' [No](ƒwƒbƒ_)‚ğo—Í
                 outputWs.Cells(rowHeader, clmNo).NumberFormatLocal = "@"
                 outputWs.Cells(rowHeader, clmNo) = "No"
             End If
             
-            ' Noï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
+            ' No—ñ‚ğo—Í
             outputWs.Cells(row, clmNo) = cntBlock
             
-        ElseIf flgRead Then ' [---] ï¿½È~ï¿½Ìê‡
+        ElseIf flgRead Then ' [---] ˆÈ~‚Ìê‡
             Dim key As String
             Dim item As String
             
-            If Left(readLine, 1) = "-" Then ' -ï¿½ï¿½ï¿½ï¿½nï¿½Ü‚é•¶ï¿½ï¿½ï¿½ï¿½Ìê‡
+            If Left(readLine, 1) = "-" Then ' -‚©‚çn‚Ü‚é•¶š—ñ‚Ìê‡
             
-                If cntBlock = 1 Then ' 1ï¿½Â–Ú‚Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½Ìê‡
-                    ' ï¿½wï¿½bï¿½_ï¿½ï¿½ï¿½oï¿½ï¿½
+                If cntBlock = 1 Then ' 1‚Â–Ú‚ÌƒuƒƒbƒN‚Ìê‡
+                    ' ƒwƒbƒ_‚ğo—Í
                     outputWs.Cells(rowHeader, clm).NumberFormatLocal = "@"
                     outputWs.Cells(rowHeader, clm) = lastKey & "_" & cntData
                 End If
                 
-                ' ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
+                ' ƒAƒCƒeƒ€‚ğo—Í
                 item = Replace(readLine, " ", "")
-                item = Replace(item, "ï¿½@", "")
+                item = Replace(item, "@", "")
                 outputWs.Cells(row, clm).NumberFormatLocal = "@"
                 outputWs.Cells(row, clm) = item
                 
-                If clm > clmMax Then ' ï¿½oï¿½Í‚ï¿½ï¿½ï¿½ï¿½ñ‚ªÅ‘ï¿½ñ”‚ï¿½è‘½ï¿½ï¿½ï¿½ê‡
+                If clm > clmMax Then ' o—Í‚µ‚½—ñ‚ªÅ‘å—ñ”‚æ‚è‘½‚¢ê‡
                     clmMax = clm
                 End If
                 clm = clm + 1
                 cntData = cntData + 1
                 
-            ElseIf InStr(readLine, ":") > 0 Then '[:]ï¿½ï¿½ï¿½Ü‚Ş•ï¿½ï¿½ï¿½ï¿½ï¿½Ìê‡
+            ElseIf InStr(readLine, ":") > 0 Then '[:]‚ğŠÜ‚Ş•¶š—ñ‚Ìê‡
                 item = GetItemStr(readLine)
                 key = GetKeyStr(readLine)
                 lastKey = key
                 cntData = 1
                 
-                If cntBlock = 1 Then ' 1ï¿½Â–Ú‚Ìƒuï¿½ï¿½ï¿½bï¿½Nï¿½Ìê‡
-                    ' ï¿½wï¿½bï¿½_ï¿½ï¿½ï¿½oï¿½ï¿½
+                If cntBlock = 1 Then ' 1‚Â–Ú‚ÌƒuƒƒbƒN‚Ìê‡
+                    ' ƒwƒbƒ_‚ğo—Í
                     outputWs.Cells(rowHeader, clm).NumberFormatLocal = "@"
                     outputWs.Cells(rowHeader, clm) = key
                 End If
-                ' ï¿½Aï¿½Cï¿½eï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
+                ' ƒAƒCƒeƒ€‚ğo—Í
                 outputWs.Cells(row, clm).NumberFormatLocal = "@"
                 outputWs.Cells(row, clm) = item
                 
-                If clm > clmMax Then  ' ï¿½oï¿½Í‚ï¿½ï¿½ï¿½ï¿½ñ‚ªÅ‘ï¿½ñ”‚ï¿½è‘½ï¿½ï¿½ï¿½ê‡
+                If clm > clmMax Then  ' o—Í‚µ‚½—ñ‚ªÅ‘å—ñ”‚æ‚è‘½‚¢ê‡
                     clmMax = clm
                 End If
                 clm = clm + 1
@@ -195,63 +194,63 @@ Function OutputDumpData(ByVal tempFilePath As String, ByVal outputWs As Workshee
         End If
     Loop
     
-    ' ï¿½gï¿½ï¿½Ç‰ï¿½
+    ' ˜g‚ğ’Ç‰Á
     outputWs.Range(outputWs.Cells(rowHeader, clmNo), outputWs.Cells(row, clmMax)).Borders.LineStyle = xlContinuous
-    ' ï¿½ñ•’ï¿½ï¿½ï¿½
+    ' —ñ•’²®
     outputWs.Columns.AutoFit
     
-    ' ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½[ï¿½Y
+    ' ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
     Close #1
     
 End Function
 
 
-'#### Keyï¿½ï¿½ï¿½æ“¾ ####'
+'#### Key‚ğæ“¾ ####'
 Function GetKeyStr(ByVal inputStr As String) As String
     Dim retStr As String
     retStr = Left(inputStr, InStr(inputStr, ":") - 1)
-    'ï¿½ó”’•ï¿½ï¿½ï¿½ï¿½ï¿½Ííœï¿½ï¿½ï¿½ï¿½
+    '‹ó”’•¶š—ñ‚Ííœ‚·‚é
     retStr = Replace(retStr, " ", "")
-    retStr = Replace(retStr, "ï¿½@", "")
+    retStr = Replace(retStr, "@", "")
     GetKeyStr = retStr
 End Function
 
 
-'#### itemï¿½ï¿½ï¿½æ“¾ ####'
+'#### item‚ğæ“¾ ####'
 Function GetItemStr(ByVal inputStr As String) As String
     Dim retStr As String
     retStr = Mid(inputStr, InStr(inputStr, ":") + 1)
-    'ï¿½ó”’•ï¿½ï¿½ï¿½ï¿½ï¿½Ííœï¿½ï¿½ï¿½ï¿½
+    '‹ó”’•¶š—ñ‚Ííœ‚·‚é
     retStr = Replace(retStr, " ", "")
-    retStr = Replace(retStr, "ï¿½@", "")
+    retStr = Replace(retStr, "@", "")
     GetItemStr = retStr
 End Function
 
 
-'### ï¿½ï¿½ï¿½ï¿½Éoï¿½Í‚Å‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½###'
+'### ³í‚Éo—Í‚Å‚«‚½‚©•\¦###'
 Sub ShowCompletionMessage()
     Dim res As Integer
-    res = MsgBox("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½", vbOKOnly)
+    res = MsgBox("Š®—¹‚µ‚Ü‚µ‚½", vbOKOnly)
 End Sub
 
 
-'#### ï¿½ï¿½ï¿½sï¿½Rï¿½[ï¿½hï¿½ÏŠï¿½ ####'
+'#### ‰üsƒR[ƒh•ÏŠ· ####'
 
 Function LfToCrlfCopy(ByVal inputFile As String, ByVal tempFilePath As String)
     Dim FileNum As Integer
     Dim FileContent As String
     Dim NewContent As String
 
-    ' ï¿½ï¿½ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
+    ' Œ³ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
     FileNum = FreeFile
     Open inputFile For Input As #FileNum
     FileContent = Input(LOF(FileNum), #FileNum)
     Close #FileNum
 
-    ' ï¿½ï¿½ï¿½sï¿½Rï¿½[ï¿½hï¿½ï¿½ÏŠï¿½ï¿½iLF ï¿½ï¿½ CRLFï¿½j
+    ' ‰üsƒR[ƒh‚ğ•ÏŠ·iLF ¨ CRLFj
     NewContent = Replace(FileContent, vbLf, vbCrLf)
 
-    ' ï¿½êï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½É•Û‘ï¿½
+    ' ˆêƒtƒ@ƒCƒ‹‚É•Û‘¶
     FileNum = FreeFile
     Open tempFilePath For Output As #FileNum
     Print #FileNum, NewContent
