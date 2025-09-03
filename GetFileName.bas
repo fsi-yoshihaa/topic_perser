@@ -1,7 +1,7 @@
 Attribute VB_Name = "GetFileName"
 Sub GetinputFile()
 
-    ' ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
+    ' ƒtƒ@ƒCƒ‹–¼‚ğæ“¾
     Dim inputFile
     With Application.FileDialog(msoFileDialogFilePicker)
         If .Show = False Then
@@ -10,6 +10,6 @@ Sub GetinputFile()
         inputFile = .SelectedItems(1)
     End With
     
-    ' ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½ï¿½
+    ' ƒtƒ@ƒCƒ‹–¼‚ğo—Í
     Range("B2") = inputFile
 End Sub
